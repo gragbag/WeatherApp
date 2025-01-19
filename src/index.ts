@@ -4,13 +4,9 @@ import { getWeather } from "./weather.js";
 const form = document.getElementById("location-form") as HTMLButtonElement;
 const input = document.getElementById("location") as HTMLInputElement;
 
-const errorMessage = document.getElementById(
-	"error-message"
-) as HTMLHeadingElement;
+const errorMessage = document.getElementById("error-message") as HTMLHeadingElement;
 
-const locationName = document.getElementById(
-	"location-name"
-) as HTMLHeadingElement;
+const locationName = document.getElementById("location-name") as HTMLHeadingElement;
 
 const tempDiv = document.getElementById("temperature") as HTMLDivElement;
 const feelsDiv = document.getElementById("feels-like") as HTMLDivElement;
@@ -36,17 +32,24 @@ const setupInput = () => {
 			errorMessage.classList.add("hidden");
 		}
 
-		console.log(data.currentConditions);
-
-		const { temp, feelslike, humidity, windspeed, conditions } =
-			data.currentConditions;
+		let { temp, feelslike } = data.currentConditions;
+		const { humidity, windspeed, conditions } = data.currentConditions;
 
 		locationName.textContent = data.resolvedAddress;
 
-		tempDiv.children[1].textContent = temp;
-		feelsDiv.children[1].textContent = feelslike;
-		humidityDiv.children[1].textContent = humidity;
-		windDiv.children[1].textContent = windspeed;
+		const selected = getSelectedDegree();
+		let degreeSymbol = "F";
+
+		if (selected === "celsius") {
+			temp = convertToC(temp);
+			feelslike = convertToC(feelslike);
+			degreeSymbol = "C";
+		}
+
+		tempDiv.children[1].textContent = `${temp} °${degreeSymbol}`;
+		feelsDiv.children[1].textContent = `${feelslike} °${degreeSymbol}`;
+		humidityDiv.children[1].textContent = `${humidity}%`;
+		windDiv.children[1].textContent = `${windspeed} m/s`;
 		conditionsDiv.children[1].textContent = conditions;
 	});
 };
@@ -60,12 +63,40 @@ const resetOutput = () => {
 	conditionsDiv.children[1].textContent = "N/A";
 };
 
-const convertToF = (celsius: number): number => {
-	return (celsius * 9) / 5 + 32;
+const getSelectedDegree = (): string => {
+	const selected = document.querySelector('input[name="degree"]:checked') as HTMLInputElement;
+	if (selected) {
+		return selected.value;
+	}
+
+	return "fahrenheit";
 };
 
-const convertToC = (fahrenheit: number): number => {
-	return ((fahrenheit - 32) * 5) / 9;
+const convertToF = (celsius: number): string => {
+	return ((celsius * 9) / 5 + 32).toFixed(1);
 };
+
+const convertToC = (fahrenheit: number): string => {
+	return (((fahrenheit - 32) * 5) / 9).toFixed(1);
+};
+
+document.querySelectorAll('input[name="degree"]').forEach((radio) => {
+	radio.addEventListener("change", (event: Event) => {
+		const target = event.target as HTMLInputElement;
+		const newDegree = target.value;
+
+		if (!tempDiv.children[1].textContent || !feelsDiv.children[1].textContent) {
+			return;
+		}
+
+		if (newDegree === "fahrenheit") {
+			tempDiv.children[1].textContent = `${convertToF(parseFloat(tempDiv.children[1].textContent))} °F`;
+			feelsDiv.children[1].textContent = `${convertToF(parseFloat(feelsDiv.children[1].textContent))} °F`;
+		} else {
+			tempDiv.children[1].textContent = `${convertToC(parseFloat(tempDiv.children[1].textContent))} °C`;
+			feelsDiv.children[1].textContent = `${convertToC(parseFloat(feelsDiv.children[1].textContent))} °C`;
+		}
+	});
+});
 
 setupInput();
