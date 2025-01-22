@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Weather App</title>
+	<script defer src="main.js"></script></head>
+	<body>
+		<!-- Title -->
+		<section id="title">
+			<h1 class="font-bold text-center text-4xl py-12">The Weather App</h1>
+		</section>
+		<!-- End Title -->
+
+		<!-- Search Section -->
+		<section id="search">
+			<!-- FlexContainer -->
+			<form action="#" method="GET" class="flex mt-12 space-x-8 items-center justify-center" id="location-form">
+				<div class="flex items-center space-x-4">
+					<label for="location">Location: </label>
+					<input type="text" name="location" id="location" placeholder="Los Angeles" class="border border-gray-300 rounded px-4 py-2" />
+				</div>
+
+				<button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Submit</button>
+			</form>
+		</section>
+
+		<!-- End Search -->
+
+		<!-- Error Message -->
+		<section>
+			<h3 id="error-message" class="hidden text-center font-bold text-red-500 mt-8">Invalid Location, Please Type A Different One</h3>
+		</section>
+
+		<!-- Display Results -->
+
+		<section id="display" class="mt-8 mx-64 py-8">
+			<div class="text-center">
+				<h2 class="text-bold text-center text-6xl mb-4" id="location-name">Location</h2>
+			</div>
+
+			<!-- FlexContainer -->
+			<div class="flex space-x-8 justify-center items-center border border-gray-700 py-8">
+				<!-- Temp -->
+				<div class="flex flex-col space-y-4" id="temperature">
+					<h3 class="text-bold text-2xl">Temperature:</h3>
+					<p class="text-center text-lg">0 °F</p>
+				</div>
+
+				<!-- FeelsLike -->
+				<div class="flex flex-col space-y-4" id="feels-like">
+					<h3 class="text-bold text-2xl">Feels Like:</h3>
+					<p class="text-center text-lg">0 °F</p>
+				</div>
+
+				<!-- Humidity -->
+				<div class="flex flex-col space-y-4" id="humidity">
+					<h3 class="text-bold text-2xl">Humidity:</h3>
+					<p class="text-center text-lg">0%</p>
+				</div>
+
+				<!-- WindSpeed -->
+				<div class="flex flex-col space-y-4" id="wind-speed">
+					<h3 class="text-bold text-2xl">Wind Speed:</h3>
+					<p class="text-center text-lg">0 m/s</p>
+				</div>
+
+				<!-- Conditions -->
+				<div class="flex flex-col space-y-4" id="conditions">
+					<h3 class="text-bold text-2xl">Conditions:</h3>
+					<p class="text-center text-lg">N/A</p>
+				</div>
+			</div>
+
+			<!-- Degree Selection Area -->
+			<div class="flex flex-col space-y-4 items-center mt-4 text-2xl">
+				<div class="flex text-center space-x-2 items-center">
+					<input type="radio" name="degree" id="fahrenheit" value="fahrenheit" checked />
+					<label for="fahrenheit">Fahrenheit</label>
+				</div>
+
+				<div class="flex text-center space-x-2 items-center">
+					<input type="radio" name="degree" id="celsius" value="celsius" />
+					<label for="celsius">Celsius</label>
+				</div>
+			</div>
+
+			<!-- Gif -->
+			<div class="flex justify-center mt-8">
+				<img id="gif" src="#" alt="" />
+			</div>
+		</section>
+	</body>
+</html>
