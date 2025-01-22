@@ -4,7 +4,7 @@ const getWeather = async (location: string) => {
 		const response = await fetch(url, { mode: "cors" });
 		const data = await response.json();
 
-		console.log(data.errorCode);
+		console.log(data);
 
 		if (data.errorCode) {
 			return { error: data.message };

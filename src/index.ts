@@ -1,5 +1,6 @@
 import "./styles.css";
 import { getWeather } from "./weather.js";
+import { getGif } from "./gif.js";
 
 const form = document.getElementById("location-form") as HTMLButtonElement;
 const input = document.getElementById("location") as HTMLInputElement;
@@ -51,6 +52,8 @@ const setupInput = () => {
 		humidityDiv.children[1].textContent = `${humidity}%`;
 		windDiv.children[1].textContent = `${windspeed} m/s`;
 		conditionsDiv.children[1].textContent = conditions;
+
+		getGif(conditions); //Create gif based on the conditions
 	});
 };
 
