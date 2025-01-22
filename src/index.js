@@ -10,6 +10,7 @@ const feelsDiv = document.getElementById("feels-like");
 const humidityDiv = document.getElementById("humidity");
 const windDiv = document.getElementById("wind-speed");
 const conditionsDiv = document.getElementById("conditions");
+const gif = document.getElementById("gif");
 const setupInput = () => {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -51,6 +52,7 @@ const resetOutput = () => {
     humidityDiv.children[1].textContent = "N/A";
     windDiv.children[1].textContent = "N/A";
     conditionsDiv.children[1].textContent = "N/A";
+    gif.src = "#";
 };
 const getSelectedDegree = () => {
     const selected = document.querySelector('input[name="degree"]:checked');
